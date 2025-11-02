@@ -1,0 +1,26 @@
+name: blangkis_app
+description: A simple UMKM sales app for Desa Pakis (Blangkis)
+publish_to: "none"
+
+environment:
+  sdk: ">=2.18.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.1.1
+  url_launcher: ^6.1.7
+  provider: ^6.0.5
+  cupertino_icons: ^1.0.5
+  flutter_launcher_icons: ^0.14.4
+
+# assets (opsional) — contoh placeholder images
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/images/logo.jpg"
