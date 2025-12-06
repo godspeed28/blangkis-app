@@ -1,53 +1,47 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import 'providers/user_provider.dart';
 import 'providers/cart_provider.dart';
-import 'data/dummy_products.dart';
 import 'screens/splash_screen.dart';
 import 'screens/login_screen.dart';
 import 'screens/dashboard_screen.dart';
 import 'screens/update_user_screen.dart';
 import 'screens/payment_screen.dart';
-import 'screens/register_screen.dart'; 
+import 'screens/register_screen.dart';
 
-void main() {
+void main() async {
+  // Pastikan binding diinisialisasi sebelum runApp
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Tidak perlu await SharedPreferences di sini
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider()),
-        ChangeNotifierProvider(create: (_) => CartProvider(dummyProducts)),
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+          lazy: false, // Buat provider segera, tidak lazy
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CartProvider(),
+        ),
       ],
       child: const BlangkisApp(),
     ),
   );
 }
 
-class BlangkisApp extends StatefulWidget {
+class BlangkisApp extends StatelessWidget {
   const BlangkisApp({super.key});
-
-  @override
-  State<BlangkisApp> createState() => _BlangkisAppState();
-}
-
-class _BlangkisAppState extends State<BlangkisApp> {
-  bool _initialized = false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    if (!_initialized) {
-      Provider.of<UserProvider>(context, listen: false).loadFromPrefs();
-      _initialized = true;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Blangkis (Blangkon Pakis)',
-      theme: ThemeData(primarySwatch: Colors.teal),
+      theme: ThemeData(
+        primarySwatch: Colors.teal,
+        useMaterial3: true,
+      ),
       initialRoute: '/',
       routes: {
         '/': (_) => const SplashScreen(),
@@ -57,6 +51,7 @@ class _BlangkisAppState extends State<BlangkisApp> {
         '/update-user': (_) => const UpdateUserScreen(),
         '/payment': (_) => const PaymentScreen(),
       },
+      debugShowCheckedModeBanner: false,
     );
   }
 }

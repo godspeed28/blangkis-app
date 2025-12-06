@@ -13,6 +13,8 @@ dependencies:
   provider: ^6.0.5
   cupertino_icons: ^1.0.5
   flutter_launcher_icons: ^0.14.4
+  sqflite: ^2.3.0
+  path: ^1.8.0
 
 # assets (opsional) — contoh placeholder images
 flutter:
